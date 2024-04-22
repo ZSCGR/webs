@@ -1,0 +1,37 @@
+div {
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
+  font-size: 50px;
+  margin: auto;
+  text-align: center;
+  overflow: hidden;
+}
+
+.wave {
+  border: 5px solid deeppink;
+  border-radius: 50%;
+  animation: indent 5s infinite linear;
+}
+
+div {
+  color: transparent;
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: deeppink;
+}
+
+div {
+  color: black;
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: deeppink;
+}
+
+@keyframes indent {
+  100% {
+    text-indent: -110px;
+  }
+}
+
+/*# sourceMappingURL=styless.css.map */
