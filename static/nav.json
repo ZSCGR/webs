@@ -2,45 +2,78 @@
 	"_id": "html",
 	"classify": "纯静态html",
 	"icon": "ti-package",
-	"sites": [{
+	"sites": [
+		{
+			"name": "浮雕按钮图",
+			"href": "static/webs/浮雕按钮图",
+			"desc": "浮雕样式的的登录界面",
+			"logo": "static/icons/sign-up.png"
+			},
+		{
 		"name": "华为充电图",
 		"href": "static/webs/华为充电图",
 		"desc": "模仿华为充电样式",
 		"logo": "static/icons/huawei.png"
-	},  {
+		},
+		{
 		"name": "立体进度图",
 		"href": "static/webs/立体进度图",
 		"desc": "假的立体进度条",
 		"logo": "static/icons/jdt.png"
-	}, {
+		},
+		{
+		"name": "量子纠缠图",
+		"href": "static/webs/量子纠缠图",
+		"desc": "记得至少打开两个页面哦~",
+		"logo": "static/icons/lzjc.png"
+		},
+		{
+		"name": "凝视深渊图",
+		"href": "static/webs/凝视深渊图",
+		"desc": "当你凝视深渊的时候，深渊也在凝视着你……",
+		"logo": "static/icons/lzjc.png"
+			},
+	    {
 		"name": "判断边界图",
 		"href": "static/webs/判断边界图",
 		"desc": "判断鼠标的滑动方向",
 		"logo": "static/icons/pdbj.png"
-	}, {
+		},
+	 	{
 		"name": "文字波浪图",
 		"href": "static/webs/文字波浪图",
 		"desc": "小众服务稳定的网盘",
 		"logo": "static/icons/blx.png"
-	}, {
+		},
+		{
 		"name": "文字故障图",
 		"href": "static/webs/文字故障图",
 		"desc": "好恐怖的文字",
 		"logo": "static/icons/haipa.png"
-	}, {
+		},
+		 {
 		"name": "无限延伸图",
 		"href": "static/webs/无限延伸图",
 		"desc": "好想逃却逃不掉",
 		"logo": "static/icons/wxys.png"
-	}, {
+		},
+		{
 		"name": "夜晚居室图",
 		"href": "static/webs/夜晚居室图",
 		"desc": "诶？晚上了吗",
 		"logo": "static/icons/night.png"
-	}, {
+		},
+		{
 		"name": "一行css图",
 		"href": "static/webs/一行css图",
 		"desc": "真的只有一行",
 		"logo": "static/icons/css.png"
-	}]
+		},
+		{
+			"name": "css 3D图",
+			"href": "static/webs/css3d图",
+			"desc": "效果酷炫",
+			"logo": "static/icons/css3d.png"
+		}
+	]
 }]
