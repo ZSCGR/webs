@@ -45,6 +45,12 @@
 		"desc": "判断鼠标的滑动方向",
 		"logo": "static/icons/pdbj.png"
 		},
+		{
+		"name": "生日快乐图",
+		"href": "static/webs/生日快乐图",
+		"desc": "生日快乐！！！",
+		"logo": "static/icons/srkl.ico"
+		},
 	    {
 		"name": "条纹艺术图",
 		"href": "static/webs/条纹艺术图",
