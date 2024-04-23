@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>条纹艺术图</title>
+<link rel="shortcut icon" href="/static/icons/twys.png" />
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <css-doodle>
+        :doodle {
+            @grid: 3 x 1;
+        }
+    
+        width: 40vmin;
+        height: 80vmin;
+    
+        --colorMain: rgb(@r(255), @r(255), @r(255));
+        --colorSub: rgb(@r(255), @r(255), @r(255));
+        --colorThird: rgb(@r(255), @r(255), @r(255));
+    
+        position: relative;
+        box-sizing: border-box;
+        margin: 1vmin;
+        border-radius: 5vmin;
+        border:2px solid #666;
+        box-shadow: 1px 1px 4px 2px #222;
+        background: conic-gradient(from @r(360)deg, var(--colorMain), transparent, var(--colorSub), transparent, var(--colorMain));
+        overflow: hidden;
+    
+        @nth(2) {
+            background: linear-gradient(var(--colorMain), var(--colorSub));
+        }
+        
+        @nth(3) {
+            background: unset;
+        }
+    
+        :before {
+            --size: @r(2, 15)px;
+            --maskSize: @r(10, 75)px;
+            --percentage: @r(10, 30)%;
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(@r(360)deg, var(--colorMain), var(--colorSub));
+            mask: 
+                linear-gradient(135deg, #fff var(--size), transparent 0),
+                linear-gradient(-135deg, #fff var(--size), transparent 0),
+                linear-gradient(45deg, #fff var(--size), transparent 0),
+                linear-gradient(-45deg, #fff var(--size), transparent 0),
+                linear-gradient(135deg, #fff calc(var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(-135deg, #fff calc(var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(45deg, #fff calc(var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(-45deg, #fff calc(var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(135deg, #fff calc(var(--percentage) + var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(-135deg, #fff calc(var(--percentage) + var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(45deg, #fff calc(var(--percentage) + var(--percentage) + var(--size)), transparent 0),
+                linear-gradient(-45deg, #fff calc(var(--percentage) + var(--percentage) + var(--size)), transparent 0);
+            mask-size: var(--maskSize) var(--maskSize);
+            mask-position: 50% 50%;
+            -webkit-mask-composite: xor;
+        }
+    </css-doodle>
+<script src="//cdnjs.cloudflare.com/ajax/libs/css-doodle/0.9.0/css-doodle.min.js"></script>
+<script>document.addEventListener('click', function(e) {
+    e.target.update && e.target.update();  
+  });
+</script>
+</body>
+</html>

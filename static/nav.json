@@ -4,11 +4,17 @@
 	"icon": "ti-package",
 	"sites": [
 		{
-			"name": "浮雕按钮图",
-			"href": "static/webs/浮雕按钮图",
-			"desc": "浮雕样式的的登录界面",
-			"logo": "static/icons/sign-up.png"
+		"name": "城市夕阳图",
+		"href": "static/webs/城市夕阳图",
+		"desc": "最美不过夕阳红~",
+		"logo": "static/icons/city-sun.png"
 			},
+		{
+		"name": "浮雕按钮图",
+		"href": "static/webs/浮雕按钮图",
+		"desc": "浮雕样式的的登录界面",
+		"logo": "static/icons/sign-up.png"
+		},
 		{
 		"name": "华为充电图",
 		"href": "static/webs/华为充电图",
@@ -32,12 +38,18 @@
 		"href": "static/webs/凝视深渊图",
 		"desc": "当你凝视深渊的时候，深渊也在凝视着你……",
 		"logo": "static/icons/lzjc.png"
-			},
-	    {
+		},
+		{
 		"name": "判断边界图",
 		"href": "static/webs/判断边界图",
 		"desc": "判断鼠标的滑动方向",
 		"logo": "static/icons/pdbj.png"
+		},
+	    {
+		"name": "条纹艺术图",
+		"href": "static/webs/条纹艺术图",
+		"desc": "华丽的条纹艺术背景",
+		"logo": "static/icons/twys.png"
 		},
 	 	{
 		"name": "文字波浪图",
@@ -51,11 +63,17 @@
 		"desc": "好恐怖的文字",
 		"logo": "static/icons/haipa.png"
 		},
-		 {
+		{
 		"name": "无限延伸图",
 		"href": "static/webs/无限延伸图",
 		"desc": "好想逃却逃不掉",
 		"logo": "static/icons/wxys.png"
+		},
+		{
+		"name": "舞台灯光图",
+		"href": "static/webs/舞台灯光图",
+		"desc": "打call~",
+		"logo": "static/icons/wtdg.png"
 		},
 		{
 		"name": "夜晚居室图",
@@ -70,10 +88,10 @@
 		"logo": "static/icons/css.png"
 		},
 		{
-			"name": "css 3D图",
-			"href": "static/webs/css3d图",
-			"desc": "效果酷炫",
-			"logo": "static/icons/css3d.png"
+		"name": "css 3D图",
+		"href": "static/webs/css3d图",
+		"desc": "效果酷炫",
+		"logo": "static/icons/css3d.png"
 		}
 	]
 }]
