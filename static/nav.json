@@ -88,6 +88,12 @@
 		"logo": "static/icons/css.png"
 		},
 		{
+		"name": "照片墙景图",
+		"href": "static/webs/照片墙景图",
+		"desc": "照片墙经典款式",
+		"logo": "static/icons/zpq.png"
+		},
+		{
 		"name": "css 3D图",
 		"href": "static/webs/css3d图",
 		"desc": "效果酷炫",
