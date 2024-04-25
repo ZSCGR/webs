@@ -1,109 +1,137 @@
-[{
+[
+	{
 	"_id": "html",
 	"classify": "纯静态html",
 	"icon": "ti-package",
 	"sites": [
 		{
-		"name": "城市夕阳图",
-		"href": "static/webs/城市夕阳图",
-		"desc": "最美不过夕阳红~",
-		"logo": "static/icons/city-sun.png"
+			"name": "城市夕阳图",
+			"href": "static/webs/城市夕阳图",
+			"desc": "最美不过夕阳红~",
+			"logo": "static/icons/city-sun.png"
 			},
-		{
-		"name": "浮雕按钮图",
-		"href": "static/webs/浮雕按钮图",
-		"desc": "浮雕样式的的登录界面",
-		"logo": "static/icons/sign-up.png"
+			{
+			"name": "浮雕按钮图",
+			"href": "static/webs/浮雕按钮图",
+			"desc": "浮雕样式的的登录界面",
+			"logo": "static/icons/sign-up.png"
 		},
 		{
-		"name": "华为充电图",
-		"href": "static/webs/华为充电图",
-		"desc": "模仿华为充电样式",
-		"logo": "static/icons/huawei.png"
+			"name": "华为充电图",
+			"href": "static/webs/华为充电图",
+			"desc": "模仿华为充电样式",
+			"logo": "static/icons/huawei.png"
+		},
+			{
+			"name": "立体进度图",
+			"href": "static/webs/立体进度图",
+			"desc": "假的立体进度条",
+			"logo": "static/icons/jdt.png"
+		},
+			{
+			"name": "量子纠缠图",
+			"href": "static/webs/量子纠缠图",
+			"desc": "记得至少打开两个页面哦~",
+			"logo": "static/icons/lzjc.png"
 		},
 		{
-		"name": "立体进度图",
-		"href": "static/webs/立体进度图",
-		"desc": "假的立体进度条",
-		"logo": "static/icons/jdt.png"
+			"name": "凝视深渊图",
+			"href": "static/webs/凝视深渊图",
+			"desc": "当你凝视深渊的时候，深渊也在凝视着你……",
+			"logo": "static/icons/lzjc.png"
 		},
 		{
-		"name": "量子纠缠图",
-		"href": "static/webs/量子纠缠图",
-		"desc": "记得至少打开两个页面哦~",
-		"logo": "static/icons/lzjc.png"
+			"name": "判断边界图",
+			"href": "static/webs/判断边界图",
+			"desc": "判断鼠标的滑动方向",
+			"logo": "static/icons/pdbj.png"
 		},
 		{
-		"name": "凝视深渊图",
-		"href": "static/webs/凝视深渊图",
-		"desc": "当你凝视深渊的时候，深渊也在凝视着你……",
-		"logo": "static/icons/lzjc.png"
-		},
-		{
-		"name": "判断边界图",
-		"href": "static/webs/判断边界图",
-		"desc": "判断鼠标的滑动方向",
-		"logo": "static/icons/pdbj.png"
-		},
-		{
-		"name": "生日快乐图",
-		"href": "static/webs/生日快乐图",
-		"desc": "生日快乐！！！",
-		"logo": "static/icons/srkl.ico"
+			"name": "生日快乐图",
+			"href": "static/webs/生日快乐图",
+			"desc": "生日快乐！！！",
+			"logo": "static/icons/srkl.ico"
 		},
 	    {
-		"name": "条纹艺术图",
-		"href": "static/webs/条纹艺术图",
-		"desc": "华丽的条纹艺术背景",
-		"logo": "static/icons/twys.png"
+			"name": "条纹艺术图",
+			"href": "static/webs/条纹艺术图",
+			"desc": "华丽的条纹艺术背景",
+			"logo": "static/icons/twys.png"
 		},
 	 	{
-		"name": "文字波浪图",
-		"href": "static/webs/文字波浪图",
-		"desc": "想给文字底下加上好看的线吗？",
-		"logo": "static/icons/blx.png"
+			"name": "文字波浪图",
+			"href": "static/webs/文字波浪图",
+			"desc": "想给文字底下加上好看的线吗？",
+			"logo": "static/icons/blx.png"
 		},
 		{
-		"name": "文字故障图",
-		"href": "static/webs/文字故障图",
-		"desc": "好恐怖的文字",
-		"logo": "static/icons/haipa.png"
+			"name": "文字故障图",
+			"href": "static/webs/文字故障图",
+			"desc": "好恐怖的文字",
+			"logo": "static/icons/haipa.png"
 		},
 		{
-		"name": "无限延伸图",
-		"href": "static/webs/无限延伸图",
-		"desc": "好想逃却逃不掉",
-		"logo": "static/icons/wxys.png"
+			"name": "无限延伸图",
+			"href": "static/webs/无限延伸图",
+			"desc": "好想逃却逃不掉",
+			"logo": "static/icons/wxys.png"
 		},
 		{
-		"name": "舞台灯光图",
-		"href": "static/webs/舞台灯光图",
-		"desc": "打call~",
-		"logo": "static/icons/wtdg.png"
+			"name": "舞台灯光图",
+			"href": "static/webs/舞台灯光图",
+			"desc": "打call~",
+			"logo": "static/icons/wtdg.png"
 		},
 		{
-		"name": "夜晚居室图",
-		"href": "static/webs/夜晚居室图",
-		"desc": "诶？晚上了吗",
-		"logo": "static/icons/night.png"
+			"name": "夜晚居室图",
+			"href": "static/webs/夜晚居室图",
+			"desc": "诶？晚上了吗",
+			"logo": "static/icons/night.png"
 		},
 		{
-		"name": "一行css图",
-		"href": "static/webs/一行css图",
-		"desc": "真的只有一行",
-		"logo": "static/icons/css.png"
+			"name": "一行css图",
+			"href": "static/webs/一行css图",
+			"desc": "真的只有一行",
+			"logo": "static/icons/css.png"
 		},
 		{
-		"name": "照片墙景图",
-		"href": "static/webs/照片墙景图",
-		"desc": "照片墙经典款式",
-		"logo": "static/icons/zpq.png"
+			"name": "照片墙景图",
+			"href": "static/webs/照片墙景图",
+			"desc": "照片墙经典款式",
+			"logo": "static/icons/zpq.png"
 		},
 		{
-		"name": "css 3D图",
-		"href": "static/webs/css3d图",
-		"desc": "效果酷炫",
-		"logo": "static/icons/css3d.png"
+			"name": "css 3D图",
+			"href": "static/webs/css3d图",
+			"desc": "效果酷炫",
+			"logo": "static/icons/css3d.png"
 		}
+	  ]
+	},
+	{
+	"_id": "game",
+	"classify": "游戏",
+	"icon": "ti-game",
+	"sites": [
+		{
+			"name": "进化",
+			"href": "static/webs/进化",
+			"desc": "一个关于进化文明的渐进式游戏",
+			"logo": "static/icons/evolved.ico"
+		},
+		{
+			"name": "真值消消乐",
+			"href": "static/webs/真值消消乐",
+			"desc": "考考你~",
+			"logo": "static/icons/xxl.png"
+		},
+		{
+			"name": "小黑屋",
+			"href": "static/webs/小黑屋/?lang=zh_cn",
+			"desc": "小黑屋——极简文字冒险游戏",
+			"logo": "static/icons/adr.ico"
+		}
+		
 	]
-}]
+}
+]
