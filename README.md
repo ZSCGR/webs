@@ -11,7 +11,7 @@ https://github.com/Aikoyori/ProgrammingVTuberLogos
 ### 进化
 https://github.com/pmotschmann/Evolve
 ### js真值表消消乐
-https://www.bilibili.com/video/BV1om4y1N7Ka/?vd_source=e3697f5fb2c726ce40bf3d150cc73d9f
+https://www.bilibili.com/video/BV1om4y1N7Ka/?vd_source=e3697f5fb2c726ce40bf3d150cc73d9f<br>
 https://js.wdn.md
 ### 小黑屋
 https://github.com/doublespeakgames/adarkroom
