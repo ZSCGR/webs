@@ -130,6 +130,18 @@
 			"href": "static/webs/小黑屋/?lang=zh_cn",
 			"desc": "小黑屋——极简文字冒险游戏",
 			"logo": "static/icons/adr.ico"
+		},
+		{
+			"name": "猫国",
+			"href": "static/webs/猫国",
+			"desc": "撸猫~",
+			"logo": "static/icons/mg.gif"
+		},
+		{
+			"name": "人生重开模拟器",
+			"href": "static/webs/人生重开模拟器/public",
+			"desc": "人生，启动!",
+			"logo": "static/icons/mnrs.ico"
 		}
 		
 	]
