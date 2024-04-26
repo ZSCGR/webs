@@ -132,12 +132,6 @@
 			"logo": "static/icons/adr.ico"
 		},
 		{
-			"name": "猫国",
-			"href": "static/webs/cat",
-			"desc": "撸猫~",
-			"logo": "static/icons/mg.gif"
-		},
-		{
 			"name": "人生重开模拟器",
 			"href": "static/webs/人生重开模拟器/public",
 			"desc": "人生，启动!",
