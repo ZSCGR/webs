@@ -114,16 +114,22 @@
 	"icon": "ti-game",
 	"sites": [
 		{
-			"name": "进化",
-			"href": "static/webs/进化",
-			"desc": "一个关于进化文明的渐进式游戏",
-			"logo": "static/icons/evolved.ico"
-		},
-		{
 			"name": "真值消消乐",
 			"href": "static/webs/真值消消乐",
 			"desc": "考考你~",
 			"logo": "static/icons/xxl.png"
+		},
+		{
+			"name": "2048",
+			"href": "static/webs/2048",
+			"desc": "2048经典款~",
+			"logo": "static/icons/2048.ico"
+		},
+		{
+			"name": "进化",
+			"href": "static/webs/进化",
+			"desc": "一个关于进化文明的渐进式游戏",
+			"logo": "static/icons/evolved.ico"
 		},
 		{
 			"name": "小黑屋",
@@ -136,6 +142,24 @@
 			"href": "static/webs/人生重开模拟器/public",
 			"desc": "人生，启动!",
 			"logo": "static/icons/mnrs.ico"
+		},
+		{
+			"name": "坦克大战",
+			"href": "static/webs/坦克大战",
+			"desc": "经典小游戏",
+			"logo": "static/icons/tkdz.png"
+		},
+		{
+			"name": "arena5",
+			"href": "static/webs/arena5",
+			"desc": "好玩的h5小游戏",
+			"logo": "static/icons/arena5.png"
+		},
+		{
+			"name": "赛车游戏",
+			"href": "static/webs/HexGL",
+			"desc": "画面精美的赛车游戏",
+			"logo": "static/icons/hexgl.png"
 		}
 		
 	]
