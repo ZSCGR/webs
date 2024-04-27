@@ -17,3 +17,9 @@ https://js.wdn.md
 https://github.com/doublespeakgames/adarkroom
 ### 人生重开模拟器
 https://github.com/VickScarlet/lifeRestart
+### arena5
+https://github.com/kevinroast/arena5
+### HexGL（赛车）
+https://github.com/BKcore/HexGL
+### 2048
+https://github.com/gabrielecirulli/2048
