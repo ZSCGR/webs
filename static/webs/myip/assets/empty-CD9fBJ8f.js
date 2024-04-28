@@ -1,1 +1,0 @@
-import{_ as e}from"./index-cTDpMoY0.js";import{b as o,o as t}from"./vendor-Dww-ccMT.js";const n={name:"EmptyComponent"};function r(c,p,s,a,m,_){return t(),o("div")}const d=e(n,[["render",r]]);export{d as default};
