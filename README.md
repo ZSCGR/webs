@@ -27,7 +27,6 @@ https://github.com/kevinroast/arena5
 https://github.com/BKcore/HexGL
 ### 2048
 https://github.com/gabrielecirulli/2048
-<<<<<<< HEAD
 ### 中国象棋
 https://github.com/itlwei/Chess
 ### 五子棋
