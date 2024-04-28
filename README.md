@@ -34,5 +34,3 @@ https://github.com/itlwei/Chess
 https://github.com/itlwei/Wuzi
 ### 黑白棋
 https://github.com/huanghaibin91/Reversi
-=======
->>>>>>> a4000cd86908974b4656c0dedf4367fe72669405
