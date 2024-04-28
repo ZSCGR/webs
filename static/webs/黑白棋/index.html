@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>黑白棋</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="image/favicon.ico" sizes="32x32">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style/index.css">
+</head>
+
+<body>
+    <!-- 页面加载 -->
+    <div class="loading-box">
+        <div class="loading">
+            <div class="door">
+                <div class="door-left bg-info"></div>
+                <div class="door-right bg-info"></div>
+            </div>
+            <div class="loading-icon text-center">
+                <span class="loading-icon-box">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                    <br>
+                </span>
+                <span>Loading...</span>
+            </div>
+        </div>
+    </div>
+    <!-- 棋盘 -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                <div class="nav">
+                    <div>
+                        <span class="glyphicon glyphicon-user"></span>
+                        &nbsp;
+                        <span class="player-name h4" href="#"></span>
+                    </div>
+                    <div class="color">
+                        <p>当前回合</p>
+                        <div id="current-color" class="chess">
+                            <div class="chess-black"></div>
+                            <div class="chess-white"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="chess-board">
+                    <h3 class="black-pass">
+                        <span class="label label-primary">黑子跳过</span>
+                    </h3>
+                    <h3 class="white-pass">
+                        <span class="label label-primary">白子跳过</span>
+                    </h3>
+                </div>
+                <div class="nav">
+                    <button type="button" class="btn btn-primary  navbar-btn">
+                        黑子得分
+                        <span class="badge black">2</span>
+                    </button>
+                    <button type="button" class="btn btn-primary  navbar-btn">
+                        白子得分
+                        <span class="badge white">2</span>
+                    </button>
+                    <button type="button" class="btn btn-primary navbar-btn navbar-right restart" style="margin-right: 15px;margin-left: 15px;">
+                        重开一局
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 游戏选项 -->
+    <div class="modal fade game-menu" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="text-center">黑白棋</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" class="btn btn-primary ai">
+                        <span class="glyphicon glyphicon-font"></span>
+                        人机对战
+                    </button>
+                    <br>
+                    <button type="button" class="btn btn-primary man">
+                        <span class="glyphicon glyphicon-bold"></span>
+                        双人对战
+                    </button>
+                    <br>
+                    <button type="button" class="btn btn-primary player">
+                        <span class="glyphicon glyphicon-user"></span>
+                        玩家信息
+                    </button>
+                    <br>
+                    <button type="button" class="btn btn-primary revise">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        更改玩家
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 添加新玩家 -->
+    <div class="modal fade add-player" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close-add-player" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">添加新玩家</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control player-input" placeholder="请输入玩家名称">
+                        <span class="help-block" style="display: none;">昵称不能为空</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close-add-player" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary save-player">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 玩家信息 -->
+    <div class="modal fade player-message" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close-player-message" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">玩家信息</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item active clearfix">
+                            <span class="pull-left">
+                                昵称
+                            </span>
+                            <span class="pull-right player-name">
+
+                            </span>
+                        </li>
+                        <li class="list-group-item clearfix">
+                            <span class="pull-left">
+                                场次
+                            </span>
+                            <span class="pull-right player-number">
+                                0
+                            </span>
+                        </li>
+                        <li class="list-group-item clearfix">
+                            <span class="pull-left">
+                                胜场
+                            </span>
+                            <span class="pull-right player-win">
+                                0
+                            </span>
+                        </li>
+                        <li class="list-group-item clearfix">
+                            <span class="pull-left">
+                                最高分
+                            </span>
+                            <span class="pull-right player-max">
+                                0
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 游戏结果 -->
+    <div class="modal fade game-result" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">游戏结果</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+                        <li class="list-group-item clearfix">
+                            <span class="pull-left">
+                                黑子
+                            </span>
+                            <span class="pull-right black">
+                                2
+                            </span>
+                        </li>
+                        <li class="list-group-item clearfix">
+                            <span class="pull-left">
+                                白子
+                            </span>
+                            <span class="pull-right white">
+                                2
+                            </span>
+                        </li>
+                    </ul>
+                    <h4 class="text-center result-color">黑子胜！</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancel" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary restart">再来一局</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- script -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

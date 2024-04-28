@@ -7,6 +7,10 @@ https://github.com/chokcoco/CSS-Inspiration
 https://github.com/bgstaal/multipleWindow3dScene
 ## 图片墙中图片来源
 https://github.com/Aikoyori/ProgrammingVTuberLogos
+## 工具
+### 画板
+https://linux.do/t/topic/68103<br>
+https://github.com/LHRUN/paint-board
 ## 游戏
 ### 进化
 https://github.com/pmotschmann/Evolve
@@ -17,3 +21,15 @@ https://js.wdn.md
 https://github.com/doublespeakgames/adarkroom
 ### 人生重开模拟器
 https://github.com/VickScarlet/lifeRestart
+### arena5
+https://github.com/kevinroast/arena5
+### HexGL（赛车）
+https://github.com/BKcore/HexGL
+### 2048
+https://github.com/gabrielecirulli/2048
+### 中国象棋
+https://github.com/itlwei/Chess
+### 五子棋
+https://github.com/itlwei/Wuzi
+### 黑白棋
+https://github.com/huanghaibin91/Reversi
