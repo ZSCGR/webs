@@ -178,6 +178,18 @@
 				"href": "static/webs/黑白棋",
 				"desc": "又叫翻转棋子、奥赛罗棋",
 				"logo": "static/icons/heibai.png"
+			},
+			{
+				"name": "俄罗斯方块",
+				"href": "static/webs/俄罗斯方块",
+				"desc": "休闲益智经典小游戏",
+				"logo": "static/icons/eluosi.png"
+			},
+			{
+				"name": "推箱子",
+				"href": "static/webs/推箱子",
+				"desc": "休闲益智经典小游戏",
+				"logo": "static/icons/box.png"
 			}
 		 ]
 	},
