@@ -33,3 +33,7 @@ https://github.com/itlwei/Chess
 https://github.com/itlwei/Wuzi
 ### 黑白棋
 https://github.com/huanghaibin91/Reversi
+### 俄罗斯方块
+https://github.com/Binaryify/vue-tetris
+### 推箱子
+https://github.com/shunyue1320/sokoban
