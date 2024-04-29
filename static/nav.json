@@ -190,6 +190,18 @@
 				"href": "static/webs/推箱子",
 				"desc": "休闲益智经典小游戏",
 				"logo": "static/icons/box.png"
+			},
+			{
+				"name": "Mikutap",
+				"href": "static/webs/mikutap",
+				"desc": "一个非常亦可赛艇的魔性小游戏",
+				"logo": "static/icons/miku.png"
+			},
+			{
+				"name": "打字游戏",
+				"href": "static/webs/ztype",
+				"desc": "类似金山打字的小游戏",
+				"logo": "static/icons/ztype.ico"
 			}
 		 ]
 	},
@@ -203,6 +215,12 @@
 				"href": "static/webs/画板",
 				"desc": "🎨 功能强大的多端绘图板",
 				"logo": "static/icons/canvas.svg"
+			},
+			{
+				"name": "创意光线绘画",
+				"href": "static/webs/wavesilk",
+				"desc": "🎨 一个很好玩的光线绘画网站",
+				"logo": "static/icons/silk_thumb.png"
 			}
 			
 		]
