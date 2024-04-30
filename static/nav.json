@@ -202,6 +202,12 @@
 				"href": "static/webs/ztype",
 				"desc": "类似金山打字的小游戏",
 				"logo": "static/icons/ztype.ico"
+			},
+			{
+				"name": "Minecraft",
+				"href": "static/webs/MC",
+				"desc": "基于Eaglercraft的网页版MC",
+				"logo": "static/icons/mc.ico"
 			}
 		 ]
 	},
