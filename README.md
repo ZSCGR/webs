@@ -11,6 +11,8 @@ https://github.com/Aikoyori/ProgrammingVTuberLogos
 ### 画板
 https://linux.do/t/topic/68103<br>
 https://github.com/LHRUN/paint-board
+### 光线绘画
+https://github.com/qumoptly/silk
 ## 游戏
 ### 进化
 https://github.com/pmotschmann/Evolve
@@ -37,3 +39,7 @@ https://github.com/huanghaibin91/Reversi
 https://github.com/Binaryify/vue-tetris
 ### 推箱子
 https://github.com/shunyue1320/sokoban
+### mikutap
+https://github.com/HFIProgramming/mikutap
+### ztype（打字游戏）
+https://github.com/taketimeasafriend/ztype
