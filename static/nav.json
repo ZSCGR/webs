@@ -204,7 +204,7 @@
 				"logo": "static/icons/ztype.ico"
 			},
 			{
-				"name": "Minecraft",
+				"name": "Minecraft（仅限PC）",
 				"href": "static/webs/MC",
 				"desc": "基于Eaglercraft的网页版MC",
 				"logo": "static/icons/mc.ico"
