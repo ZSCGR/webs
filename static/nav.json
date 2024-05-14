@@ -208,6 +208,12 @@
 				"href": "static/webs/MC",
 				"desc": "基于Eaglercraft的网页版MC",
 				"logo": "static/icons/mc.ico"
+			},
+			{
+				"name": "塔防",
+				"href": "static/webs/towerdefense",
+				"desc": "好玩的塔防游戏",
+				"logo": "static/icons/td.png"
 			}
 		 ]
 	},
