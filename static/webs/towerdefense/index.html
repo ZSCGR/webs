@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Amelia Clarke">
+    <link rel="shortcut icon" href="/static/icons/td.png" />
+    <title>Tower Defense</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="scripts/lib/lz-string.min.js" defer></script>
+    <script src="scripts/lib/p5.min.js" defer></script>
+    <script src="scripts/lib/p5.sound.min.js" defer></script>
+    <script src="scripts/utils.js" defer></script>
+    <script src="scripts/enemy.js" defer></script>
+    <script src="scripts/enemies.js" defer></script>
+    <script src="scripts/particle.js" defer></script>
+    <script src="scripts/particle_system.js" defer></script>
+    <script src="scripts/effect.js" defer></script>
+    <script src="scripts/effects.js" defer></script>
+    <script src="scripts/tower.js" defer></script>
+    <script src="scripts/towers.js" defer></script>
+    <script src="scripts/missile.js" defer></script>
+    <script src="scripts/maps.js" defer></script>
+    <script src="scripts/tiles.js" defer></script>
+    <script src="scripts/sketch.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>塔防</h1>
+    </header>
+
+    <main>
+      <div id="left-asides">
+        <aside id="map-aside">
+          <div class="group">
+            <p><button class="io" onclick="importMap(prompt('Input map string:'))">导入地图 (M)</button></p>
+            <p><button class="io" onclick="copyToClipboard(exportMap())">导出地图 (X)</button></p>
+          </div>
+          <p>编辑地图 <a href="./editor/index.html" target="_blank">这里</a>.</p>
+        </aside>
+        <aside id="store">
+          <h2>商店</h2>
+          <div class="group">
+            <p><button class="gun" onclick="setPlace('gun')">枪塔 (1)</button></p>
+            <p><button class="laser" onclick="setPlace('laser')">激光塔 (2)</button></p>
+            <p><button class="slow" onclick="setPlace('slow')">减速塔 (3)</button></p>
+            <p><button class="sniper" onclick="setPlace('sniper')">狙击塔 (4)</button></p>
+            <p><button class="rocket" onclick="setPlace('rocket')">火箭塔 (5)</button></p>
+            <p><button class="bomb" onclick="setPlace('bomb')">炸弹塔 (6)</button></p>
+            <p><button class="tesla" onclick="setPlace('tesla')">特斯拉线圈 (7)</button></p>
+          </div>
+        </aside>
+      </div>
+
+      <div id="sketch-holder"></div>
+
+      <div id="right-asides">
+        <aside id="status">
+          <p id="wave"></p>
+          <p id="health"></p>
+          <p id="cash"></p>
+          <div class="horiz-buttons">
+            <button id="pause" onclick="pause()">开始</button>
+            <button onclick="resetGame()">重开</button>
+          </div>
+          <p>
+            地图:
+            <select id="map">
+              <option value="empty2">非常难 (2)</option>
+              <option value="empty3">非常难 (3)</option>
+              <option value="sparse2" selected>微难 (2)</option>
+              <option value="sparse3">微难 (3)</option>
+              <option value="dense2">简单 (2)</option>
+              <option value="dense3">简单 (3)</option>
+              <option value="solid2">非常简单 (2)</option>
+              <option value="solid3">非常简单 (3)</option>
+              <option id="custom" value="custom">自定义</option>
+              <option value="loops">环状</option>
+              <option value="spiral">螺旋</option>
+              <option value="branch">分支</option>
+              <option value="branchAlt">分支 (Alt)</option>
+              <option value="city">城市</option>
+              <option value="freeway">高速公路</option>
+              <option value="walls">墙</option>
+              <option value="fork">叉子</option>
+            </select>
+          </p>
+        </aside>
+
+        <aside id="info">
+          <div id="info-div">
+            <h3 id="name"></h3>
+            <p id="cost"></p>
+            <p id="sellPrice"></p>
+            <p id="upPrice"></p>
+            <p id="damage"></p>
+            <p id="type"></p>
+            <p id="range"></p>
+            <p id="cooldown"></p>
+            <div class="horiz-buttons" id="info-buttons">
+              <button id="sell" onclick="if (selected) sell(selected)">出售</button>
+              <button id="upgrade" onclick="if (selected && selected.upgrades.length > 0) upgrade(selected.upgrades[0])">升级</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>

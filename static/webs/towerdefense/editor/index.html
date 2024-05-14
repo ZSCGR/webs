@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Amelia Clarke">
+    <title>Map Editor</title>
+    <link rel="shortcut icon" href="/static/icons/td.png" />
+    <link href="style.css" rel="stylesheet">
+    <script src="scripts/lib/lz-string.min.js" defer></script>
+    <script src="scripts/lib/p5.min.js" defer></script>
+    <script src="scripts/utils.js" defer></script>
+    <script src="scripts/tiles.js" defer></script>
+    <script src="scripts/sketch.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Map Editor</h1>
+    </header>
+
+    <main>
+      <aside id="tiles">
+        <div id="tile-picker">
+          <h2>允许块</h2>
+          <div class="group">
+            <p><button class="empty" onclick="tile='empty'">空地块 (1)</button></p>
+            <p><button class="wall" onclick="tile='wall'">墙块 (2)</button></p>
+            <p><button class="path" onclick="tile='path'">路径块 (3)</button></p>
+            <p><button class="tower" onclick="tile='tower'">塔块 (4)</button></p>
+            <p><button class="enemy" onclick="tile='enemy'">敌人专用瓷砖 (5)</button></p>
+          </div>
+  
+          <h2>特殊</h2>
+          <div class="group">
+            <p><button class="spawn" onclick="tile='spawn'">红门 (6)</button></p>
+            <p><button class="exit" onclick="tile='exit'">蓝门 (7)</button></p>
+          </div>
+  
+          <h2>路径</h2>
+          <div class="group">
+            <p><button class="dir" onclick="tile='none'">无路径 (0)</button></p>
+            <p><button class="dir" onclick="tile='left'">向左 (left)</button></p>
+            <p><button class="dir" onclick="tile='up'">向上 (up)</button></p>
+            <p><button class="dir" onclick="tile='right'">向右 (right)</button></p>
+            <p><button class="dir" onclick="tile='down'">向下 (down)</button></p>
+          </div>
+        </div>
+        <div id="deco-picker">
+          <h2>装饰性</h2>
+          <div class="group">
+            <p><button class="emptyD light" onclick="deco='empty'">空地块 (1)</button></p>
+            <p><button class="wallD light" onclick="deco='wall'">墙块 (2)</button></p>
+            <p><button class="towerD light" onclick="deco='tower'">塔块 (3)</button></p>
+          </div>
+
+          <h2>方向</h2>
+          <div class="group">
+            <p><button class="dir" onclick="deco='none'">无 (0)</button></p>
+            <p><button class="dir" onclick="deco='left'">左 (left)</button></p>
+            <p><button class="dir" onclick="deco='up'">上 (up)</button></p>
+            <p><button class="dir" onclick="deco='right'">右 (right)</button></p>
+            <p><button class="dir" onclick="deco='down'">下 (down)</button></p>
+          </div>
+
+          <h2>城市</h2>
+          <div class="group">
+            <p><button class="grass" onclick="deco='grass'">草地 (4)</button></p>
+            <p><button class="road" onclick="deco='road'">马路 (5)</button></p>
+            <p><button class="road" onclick="deco='lCorner'">左拐角 (6)</button></p>
+            <p><button class="road" onclick="deco='rCorner'">左拐角 (7)</button></p>
+            <p><button class="sidewalk" onclick="deco='sidewalk'">人行道 (8)</button></p>
+          </div>
+
+          <h2>霓虹的</h2>
+          <div class="group">
+            <p><button class="neon_pink" onclick="deco='neon_pink'">粉红色</button></p>
+            <p><button class="neon_yellow" onclick="deco='neon_yellow'">黄色</button></p>
+            <p><button class="neon_green" onclick="deco='neon_green'">绿色</button></p>
+            <p><button class="neon_orange" onclick="deco='neon_orange'">橙色</button></p>
+            <p><button class="neon_purple light" onclick="deco='neon_purple'">紫色</button></p>
+          </div>
+
+          <h2>颜色</h2>
+          <div class="group">
+            <p><button class="c0_lightBrown" onclick="deco='c0_lightBrown'">亮棕色</button></p>
+            <p><button class="c0_lightPurple" onclick="deco='c0_lightPurple'">亮紫色</button></p>
+            <p><button class="c0_mediumPurple light" onclick="deco='c0_mediumPurple'">丽贝卡紫</button></p>
+            <p><button class="c0_darkPurple light" onclick="deco='c0_darkPurple'">深紫色</button></p>
+            <p><button class="c0_paleGreen" onclick="deco='c0_paleGreen'">淡灰色</button></p>
+          </div>
+          <div class="group">
+            <p><button class="c1_darkBlue light" onclick="deco='c1_darkBlue'">亮棕色</button></p>
+            <p><button class="c1_mediumBlue light" onclick="deco='c1_mediumBlue'">亮紫色</button></p>
+            <p><button class="c1_lightBlue" onclick="deco='c1_lightBlue'">丽贝卡紫</button></p>
+            <p><button class="c1_darkPurple light" onclick="deco='c1_darkPurple'">深紫色</button></p>
+            <p><button class="c1_neonPink" onclick="deco='c1_neonPink'">霓虹粉</button></p>
+          </div>
+          <div class="group">
+            <p><button class="c2_darkRed light" onclick="deco='c2_darkRed'">暗红色</button></p>
+            <p><button class="c2_navyBlue light" onclick="deco='c2_navyBlue'">海军蓝</button></p>
+            <p><button class="c2_darkBlue light" onclick="deco='c2_darkBlue'">深蓝色</button></p>
+            <p><button class="c2_paleYellow" onclick="deco='c2_paleYellow'">淡黄色</button></p>
+            <p><button class="c2_lightYellow" onclick="deco='c2_lightYellow'">亮黄色</button></p>
+          </div>
+        </div>
+      </aside>
+
+      <div id="sketch-holder"></div>
+
+      <div class="aside-holder">
+        <aside id="status">
+          <h2>状态</h2>
+          <p id="dim"></p>
+          <p id="coord">鼠标位置: (0, 0)</p>
+        </aside>
+
+        <aside id="utils">
+          <h2>功能</h2>
+          <div class="group">
+            <p><button class="fill" onclick="resetMap(0)">重置地图 (R)</button></p>
+            <p><button class="fill" onclick="userFill()">用已选择的填充 (F)</button></p>
+          </div>
+          <div class="group">
+            <p><button class="io" onclick="importMap(prompt('请输入地图字符串：'))">导入地图 (M)</button></p>
+            <p><button class="io" onclick="copyToClipboard(exportMap()); alert('当前地图字符串已经导出到剪贴板')">导出地图 (X)</button></p>
+          </div>
+          <div class="group">
+            <p><button class="dir" onclick="recalculate()">自动寻路 (P)</button></p>
+            <p><button class="dir" onclick="paths=buildArray(cols,rows,null)">清除路径信息 (Q)</button></p>
+          </div class="group">
+          <div class="group">
+            <p><button class="disp" onclick="dispMode=!dispMode;updateDivs()">显示模式 (Space)</button></p>
+            <p><button class="disp" id="autogen" onclick="autogen=!autogen;var state=autogen?'关':'开';document.getElementById('autogen').innerHTML='自动更新显示图层 '+state+' (D)'">自动更新显示图层 (D)</button></p>
+            <p><button class="disp" onclick="autogenDisplay()">更新显示 (U)</button></p>
+            <p><button class="disp" onclick="displayDir=copyArray(paths)">显示路径 (L)</button></p>
+            <p><button class="disp" onclick="display=buildArray(cols,rows,'empty');displayDir=buildArray(cols,rows,0)">清除展示 (C)</button></p>
+          </div>
+          <p><button class="spawn" onclick="spawnpoints=[]">清除出生点 (S)</button></p>
+          <p><button class="zoom" onclick="ts=zoomDefault;resizeMax();resetMap(0)">默认缩放 (Z)</button></p>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
