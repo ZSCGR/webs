@@ -210,10 +210,22 @@
 				"logo": "static/icons/mc.ico"
 			},
 			{
+				"name": "围住神经猫",
+				"href": "static/webs/围住神经猫",
+				"desc": "经典小游戏",
+				"logo": "static/icons/cat.ico"
+			},
+			{
 				"name": "塔防",
 				"href": "static/webs/towerdefense",
 				"desc": "好玩的塔防游戏",
 				"logo": "static/icons/td.png"
+			},
+			{
+				"name": "生命游戏",
+				"href": "static/webs/life",
+				"desc": "拥有无限可能性的游戏",
+				"logo": "static/icons/life.ico"
 			}
 		 ]
 	},

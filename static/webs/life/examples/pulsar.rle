@@ -1,0 +1,8 @@
+#N pulsarlikeoscillators.rle
+#C https://conwaylife.com/wiki/Cross
+#C https://www.conwaylife.com/patterns/pulsarlikeoscillators.rle
+x = 42, y = 15, rule = B3/S23
+32bo3bo$2b3o3b3o21bo3bo$32bo3bo$o4bobo4bo18b2o3b2o$o4bobo4bo5bo2bo8bob
+o3bobo$o4bobo4bo5bo2bo5b5o5b5o$2b3o3b3o6b2o2b2o$15b3o4b3o$2b3o3b3o$o4b
+obo4bo14b5o5b5o$o4bobo4bo2b3o4b3o5bobo3bobo$o4bobo4bo4b2o2b2o8b2o3b2o$
+18bo2bo10bo3bo$2b3o3b3o7bo2bo10bo3bo$32bo3bo!
