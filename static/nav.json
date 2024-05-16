@@ -216,6 +216,18 @@
 				"logo": "static/icons/cat.ico"
 			},
 			{
+				"name": "一个都不能死",
+				"href": "static/webs/一个都不能死",
+				"desc": "经典小游戏",
+				"logo": "static/icons/xiaoren.png"
+			},
+			{
+				"name": "见缝插针",
+				"href": "static/webs/见缝插针",
+				"desc": "经典小游戏",
+				"logo": "static/icons/jfcz.png"
+			},
+			{
 				"name": "塔防",
 				"href": "static/webs/towerdefense",
 				"desc": "好玩的塔防游戏",
