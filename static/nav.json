@@ -238,6 +238,12 @@
 				"href": "static/webs/life",
 				"desc": "拥有无限可能性的游戏",
 				"logo": "static/icons/life.ico"
+			},
+			{
+				"name": "魔方",
+				"href": "static/webs/魔方",
+				"desc": "普通的三阶魔方~",
+				"logo": "static/icons/mofang.png"
 			}
 		 ]
 	},
