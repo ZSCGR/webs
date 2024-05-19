@@ -244,6 +244,18 @@
 				"href": "static/webs/魔方",
 				"desc": "普通的三阶魔方~",
 				"logo": "static/icons/mofang.png"
+			},
+			{
+				"name": "扫雷",
+				"href": "static/webs/proxx",
+				"desc": "非常好看的扫雷小游戏",
+				"logo": "static/icons/proxx.png"
+			},
+			{
+				"name": "滑块拼图",
+				"href": "static/webs/滑块拼图",
+				"desc": "经典益智小游戏",
+				"logo": "static/icons/hkpt.png"
 			}
 		 ]
 	},
