@@ -256,6 +256,18 @@
 				"href": "static/webs/滑块拼图",
 				"desc": "经典益智小游戏",
 				"logo": "static/icons/hkpt.png"
+			},
+			{
+				"name": "高尔夫",
+				"href": "static/webs/golf",
+				"desc": "碰撞效果优秀",
+				"logo": "static/icons/golf.png"
+			},
+			{
+				"name": "六边形俄罗斯方块",
+				"href": "static/webs/hextris",
+				"desc": "受俄罗斯方块影响开发的小游戏",
+				"logo": "static/icons/hextris.ico"
 			}
 		 ]
 	},
