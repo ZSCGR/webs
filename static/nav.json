@@ -105,7 +105,20 @@
 				"href": "static/webs/css3d图",
 				"desc": "效果酷炫",
 				"logo": "static/icons/css3d.png"
+			},
+			{
+				"name": "炫酷动态网页背景合集",
+				"href": "static/webs/炫酷动态网页背景合集",
+				"desc": "效果非常酷炫",
+				"logo": "static/icons/fly.png"
+			},
+			{
+				"name": "好看的登录页面",
+				"href": "static/webs/好看的登录页面",
+				"desc": "效果非常酷炫",
+				"logo": "static/icons/login-2.png"
 			}
+
 		  ]
 	},
 	{
@@ -268,6 +281,12 @@
 				"href": "static/webs/hextris",
 				"desc": "受俄罗斯方块影响开发的小游戏",
 				"logo": "static/icons/hextris.ico"
+			},
+			{
+				"name": "PIXEL TD",
+				"href": "static/webs/td-2",
+				"desc": "更为精美的塔防游戏",
+				"logo": "static/icons/td-2.png"
 			}
 		 ]
 	},
