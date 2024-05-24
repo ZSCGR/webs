@@ -287,6 +287,12 @@
 				"href": "static/webs/td-2",
 				"desc": "更为精美的塔防游戏",
 				"logo": "static/icons/td-2.png"
+			},
+			{
+				"name": "rewire",
+				"href": "static/webs/rewire",
+				"desc": "有点烧脑的小游戏",
+				"logo": "static/icons/rewire.png"
 			}
 		 ]
 	},
