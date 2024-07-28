@@ -293,6 +293,24 @@
 				"href": "static/webs/rewire",
 				"desc": "有点烧脑的小游戏",
 				"logo": "static/icons/rewire.png"
+			},
+			{
+				"name": "raven",
+				"href": "static/webs/raven",
+				"desc": "有点烧脑的逃脱小游戏",
+				"logo": "static/icons/raven.png"
+			},
+			{
+				"name": "konnekt",
+				"href": "static/webs/konnekt",
+				"desc": "有意思的攻防小游戏",
+				"logo": "static/icons/konnekt.png"
+			},
+			{
+				"name": "推箱子",
+				"href": "static/webs/1024-moves",
+				"desc": "好玩的3D推箱子游戏",
+				"logo": "static/icons/konnekt.png"
 			}
 		 ]
 	},
