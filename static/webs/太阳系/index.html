@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>3D 太阳系模拟 (Three.js - 多星环 - 优化版+全屏+亮度+粗线)</title>
+     <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #030308; 
+            color: white;
+            font-family: sans-serif;
+            user-select: none;
+        }
+
+        canvas {
+            display: block;
+        }
+        
+         .panel {
+             background: rgba(15, 15, 35, 0.75); 
+             padding: 8px 12px;
+             border-radius: 5px;
+             user-select: none;
+             pointer-events: auto; 
+             box-sizing: border-box;
+             cursor: default; 
+         }
+
+        #info {
+           position: absolute; 
+           top: 10px;
+           left: 10px;
+           padding: 10px 15px;
+            background: rgba(10, 10, 20, 0.65);
+        }
+        
+        #top-right-container {
+           position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column; 
+            align-items: flex-end; 
+            gap: 8px;
+            pointer-events: none; 
+         }
+          #top-right-container > * {
+            pointer-events: auto; 
+          }
+
+
+         #instructions {
+             background: rgba(10, 10, 20, 0.5);
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        #bottom-wrapper {
+           position: absolute;
+           bottom: 0;
+           left: 0;
+           right: 0;
+           display: flex;
+           justify-content: space-between; 
+           align-items: flex-end;
+           padding: 10px; 
+           gap: 20px; 
+           pointer-events: none; /* Wrapper none, children auto */
+            box-sizing: border-box;
+        }
+      
+         #planet-selector {
+            padding: 5px;
+            display: flex; 
+            flex-wrap: wrap; 
+             justify-content: flex-start;
+            gap: 4px; 
+            flex-shrink: 1; 
+             max-width: 70%;
+            max-height: 90px; 
+            overflow-y: auto; 
+         }
+          .planet-button {
+             background: #223;
+             color: #ccc;
+             border: 1px solid #445;
+             border-left: 4px solid #556; /* Color indicator */
+             padding: 3px 8px;
+             cursor: pointer;
+             border-radius: 3px;
+             font-size: 11px;
+             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;;
+             white-space: nowrap;
+          }
+           .planet-button.active {
+              background: #446;
+              color: white;
+              border-color: #779;
+               font-weight: bold;
+           }
+          .planet-button:hover:not(.active) {
+             background: #335;
+             color: white;
+          }
+
+        #controls-panel {
+             padding: 8px;
+             flex-shrink: 0; 
+             white-space: nowrap; 
+             text-align: right;
+        }
+        
+        .ui-button {
+             background: #335; 
+            color: white;
+            border: 1px solid #668;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+             transition: background-color 0.2s ease;
+             font-size: 12px; 
+             font-family: sans-serif; 
+              pointer-events: auto; 
+        }
+         .ui-button:hover {
+           background: #447;
+         }
+          .ui-button.active {
+             background: #558;
+             border-color: #88b;
+         }
+       #controls-panel button.ui-button {
+           padding: 5px 10px; 
+        }
+
+
+        #controls-panel label {
+            margin-left: 8px;
+             font-size: 13px;
+        }
+
+        #controls-panel input[type=range],
+         #controls-panel input[type=checkbox] {
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .label {
+            color: #FFF;
+            font-size: 11px;
+            background: rgba(15, 15, 35, 0.65);
+            padding: 2px 4px;
+            border-radius: 3px;
+            text-shadow: 1px 1px 2px #000;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+             transition: opacity 0.3s ease; 
+        }
+         .label-hidden {
+            opacity: 0;
+         }
+
+    </style>
+    <!-- Import maps polyfill -->
+    <script async src="https://ga.jspm.io/npm:es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <!-- Use CDN for Three.js -->
+    <script type="importmap">
+      {
+         "imports": {
+            "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+         }
+      }
+   </script>
+</head>
+
+<body>
+     <div id="info" class="panel" style="pointer-events: auto;">点击天体或底部按钮进行聚焦</div>
+    
+      <div id="top-right-container">
+           <div id="instructions" class="panel">
+               鼠标左键：旋转 | 鼠标滚轮：缩放 | 鼠标右键：平移<br>
+               点击天体/按钮：镜头跟随 | 点击重置：返回太阳中心
+           </div>
+           <button id="fullscreenButton" class="ui-button panel" style="padding: 6px 12px;">进入全屏</button>
+      </div>
+
+    <div id="bottom-wrapper"> 
+         <div id="planet-selector" class="panel">
+            <!-- Buttons generated by JS -->
+         </div>
+
+        <div id="controls-panel" class="panel">
+            <button id="resetButton" class="ui-button">重置视角 (太阳)</button>
+            <label for="timeScaleSlider">速度:</label>
+            <input type="range" id="timeScaleSlider" min="0.01" max="2.5" step="0.01" value="0.15">
+            <label for="sizeScaleSlider">大小:</label>
+            <input type="range" id="sizeScaleSlider" min="0.1" max="3" step="0.05" value="1">
+            <label for="labelToggle">标签:</label>
+            <input type="checkbox" id="labelToggle" checked>
+        </div>
+   </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+         // +++ 优化: 线条粗细 - 导入所需模块
+        import { Line2 } from 'three/addons/lines/Line2.js';
+		import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+		import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+        // +++ 结束
+
+        // --- 数据定义 ---
+        const distanceScale = 15; // 1 AU = 15 units
+        let timeScale = 0.15; 
+        let sizeScaleFactor = 1.0; // For slider
+        const orbitSegments = 128;
+        const basePlanetSize = 0.4;
+        const minDisplaySize = 0.18; 
+        let showLabels = true;
+        const glowTexture = new THREE.TextureLoader().load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOC8xMy8xOG+3j68AAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAE50lEQVR4nO2b224bNxCGs/n/v+j3g9/XViB4cZImxQGkQ2q7aKCoUaBA+a2I7GZ3lW/RVb7I3vRmWbZJgKJAkZR1kmb7Ab5FY8+8McyMzzE9b+Y/03w2i6IohQIQAC7/g65vLgAABAEAAAEA+P/o+gYAAAQBAAABAAD+P7q+AQAECZ4/f+7u7o5+v39w+zEAAAgCABAAgABAAABCfV2d8+fPq9Xq9ftHIaCqGgBgYwQAQgYAAAQAEKrn5/v7a29vn16vX7z/qBNEEQEArI0IQMgAAAABAIAiAQAAAwAQCAEgAIAAAAIACADQ6/Xz8/P1en15f78fAAD+f3R9AwCAIAAAIAAQAAAQAEAgAEAAAIcOABAEAAAEAPh/dP0AAIAgAAAgAIAAAIAAAIAgAAAgAIAAAIAAQAAAf/0H3dDiXyFm5l+qyv/Q9Q0AAAQBAAABAAD+P7q+AQAECR48eFA+nw+Hw7G+vh4Oh8Pj4+Pz8/Pg8Xh8/vz5Xt/j4+PDw8Plcvn4+Pjh4eHz8/Pz8/PxeDy+vr5+e3s7HA6Hqqu1Wq1WqxWPx4/FYnl/f//x8fHz8/P39/eHh4fn5+fX19fn5+cfHx+fn5/Pz8+1Wu37+/vX19fF4/Hz8/PxePz7+/v19fXp6enr6+vDw8PPz8+lUun39/f9/f3v7+/n5+f39/fn5+cvLy/Pz89PT0+Px+Pr6+v9/f3f399fX1/f39+fn5+fn5/f3t5+fn5+fn7+8fHxw8PD29vb4+Pj8/Pz5+fnr6+v39/ff39/f39/f39/f39/Px6P39/fn5+fX19f12q1fr//9fX19fX15eXlYrFYEAQfHx8/Pz9/f3+/318sFr+//37/Y8eP/09EfL9/cnKy2Wxm/gP432Xy+fzk5OTw8LB+vz85Ocmv9+l0Ojs7Ozk5OTo6Ojo6+vT0dH9/v9vt/vF4zM/P+/3+mZmZ+fl5f3//9PR0eXm5Xq+/f//+4uLi4uLix48fX15e/vjx47dv3769vf3p06f379+/ePHizs7Ozs7O29vb3759+/3796+vrx8cHNy/f39xcfHp6enFxUU+n+/v7//+/fuLFy/u7u7u7u7+9evXv//+vb29vbu7+/r6eun+0tLSo0ePnjx58uHDh0+fPn348OHPP//84sWLq6urq6urP3/+fHBw8P79+5eXlycnJ6enp6empiYnJxcXF998883t7e3t7e33b9/euXPnzp07v/7664cPH/7xxx8fHh6+fPny+fPnz58/v7i4+OWXX3548+bN/v7+58+fv3r16ubm5ubm5ps3b968efPs2bNnz559+fLlt2/f3rt3b2dnZ3d39+eff/7y5csPHjz4+PHjBwcH19fX19fXP3369N27d3fv3r1z586dO3c+ffr0+fPnX758+e3bt7e3t7e3t7fu3bt79+4nT5588+bNN2/e/Ouvv/74448fP358fX399u3bW7du3bp169atW/v7+x88ePD48eMXL15cX1//+vXrgwcPnjx58uHDh/f39+/evbu7u7u7u3v37t179+7t7e3t7e179+7t7e19+vTp58+fP3/+fHd3d3d39/379/fv3z88PPz48eNHjx7d39+/c+fO3bt379y5c//+/fv37//4449fv379+PHj7du3b926dfPmzZs3b966detv4r/8f13fAAAAAlxRVh0WW91cl9OT1RfRVhQT1JUSU5HX1RISVNfRklMRT3G9sEAAAAASUVORK5CYII=');
+
+        const celestialData = [
+           { name: "太阳 (Sun)", period: 0, a: 0, e: 0, i: 0, Omega: 0, omega: 0, M: 0, displayRadius: 4.5, color: 0xFFEC8B, type: 'star'},
+           { name: "水星 (Mercury)", period: 0.241, a: 0.3871, e: 0.2056, i: 7.005, Omega: 48.33, omega: 29.12, M: 174.79, displayRadius: basePlanetSize*0.38 , color: 0xbbbbbb, type: 'planet' }, 
+           { name: "金星 (Venus)",   period: 0.615, a: 0.7233, e: 0.0068, i: 3.3947, Omega: 76.68, omega: 54.85, M: 50.45,  displayRadius: basePlanetSize*0.9 , color: 0xFFDAB9, type: 'planet' },
+           { name: "地球 (Earth)",   period: 1.000, a: 1.0000, e: 0.0167, i: 0.0001, Omega: 348.74,omega: 114.21,M: 357.52, displayRadius: basePlanetSize*1.0 , color: 0x4682B4, type: 'planet' },
+           { name: "火星 (Mars)",    period: 1.881, a: 1.5237, e: 0.0934, i: 1.8506, Omega: 49.58, omega: 286.46,M: 19.41,  displayRadius: basePlanetSize*0.6 , color: 0xEE6C5C, type: 'planet' }, 
+           { name: "木星 (Jupiter)", period: 11.862,a: 5.2034, e: 0.0484, i: 1.3053, Omega: 100.56,omega: 274.20,M: 19.65,  displayRadius: basePlanetSize*3.5 , color: 0xDEB887, type: 'planet', ring: { innerRadius: 1.2, outerRadius: 1.6, opacity: 0.2, tilt: 0 } },
+           { name: "土星 (Saturn)",  period: 29.457,a: 9.5371, e: 0.0542, i: 2.4845, Omega: 113.72,omega: 338.72,M: 317.51, displayRadius: basePlanetSize*3.0 , color: 0xF0E68C, type: 'planet', ring: { innerRadius: 1.3, outerRadius: 2.2, opacity: 0.75, tilt: 0 } }, 
+           { name: "天王星 (Uranus)", period: 84.011,a: 19.1913,e: 0.0472, i: 0.7699, Omega: 74.23, omega: 96.73, M: 142.27, displayRadius: basePlanetSize*2.0 , color: 0xAFEEEE, type: 'planet', ring: { innerRadius: 1.3, outerRadius: 1.8, opacity: 0.4, tilt: 98 } }, 
+           { name: "海王星 (Neptune)",period: 164.79,a: 30.0690,e: 0.0086, i: 1.7692, Omega: 131.72,omega: 273.25,M: 259.91, displayRadius: basePlanetSize*1.9 , color: 0x4169E1, type: 'planet', ring: { innerRadius: 1.4, outerRadius: 1.9, opacity: 0.35, tilt: 0 }}, 
+           { name: "谷神星 (Ceres)",  period: 4.60,  a: 2.7668, e: 0.07954, i: 10.5864, Omega: 80.407, omega: 72.965, M: 301.655, displayRadius: basePlanetSize*0.25, color: 0xaaaaaa, type: 'dwarf'}, 
+           { name: "冥王星 (Pluto)",  period: 247.94,a: 39.4451, e: 0.25025, i: 17.0890, Omega: 110.377,omega: 112.597,M: 25.247, displayRadius: basePlanetSize*0.3, color: 0xccaa99, type: 'dwarf'}, 
+           { name: "阋神星 (Eris)",   period: 558,   a: 67.840, e: 0.43747, i: 44.0790, Omega: 35.9276,omega: 151.57, M: 198.490, displayRadius: basePlanetSize*0.28, color: 0xbbbbbb, type: 'dwarf'}, 
+           { name: "鸟神星 (Makemake)",period: 306,  a: 45.426, e: 0.1610,  i: 28.999,  Omega: 79.572, omega: 295.154,M: 151.598, displayRadius: basePlanetSize*0.26, color: 0xaa8a8a, type: 'dwarf'},
+           { name: "妊神星 (Haumea)", period: 283,   a: 43.133, e: 0.1950,  i: 28.22,   Omega: 122.103,omega: 239.184,M: 202.675, displayRadius: basePlanetSize*0.27, color: 0xba9a9a, type: 'dwarf'},
+           { name: "哈雷彗星 (Halley)",period: 76.1, a: 17.94, e: 0.967, i: 162.3, Omega: 59.11, omega: 112.26, M: 274.14, displayRadius: basePlanetSize * 0.2, color: 0x00FFFF, type: 'comet'},
+           { name: "恩克彗星 (Encke)", period: 3.30, a: 2.21,  e: 0.847, i: 11.8,  Omega: 334.56,omega: 186.56, M: 341.43, displayRadius: basePlanetSize * 0.15,  color: 0xAAFFFF, type: 'comet'},
+        ];
+
+        // --- Three.js Setup ---
+        let scene, camera, renderer, controls, clock;
+        let labelRenderer;
+        let raycaster, pointer;
+        let sunMesh;
+        let sunGlowSprite; 
+        const celestialMeshes = [];
+        const celestialObjects = []; 
+        let currentTargetMesh = null;
+        let isFollowing = false;
+        const infoDiv = document.getElementById('info');
+        const resetButton = document.getElementById('resetButton');
+        const fullscreenButton = document.getElementById('fullscreenButton'); 
+        const timeScaleSlider = document.getElementById('timeScaleSlider');
+        const sizeScaleSlider = document.getElementById('sizeScaleSlider');
+        const labelToggle = document.getElementById('labelToggle');
+        const planetSelectorDiv = document.getElementById('planet-selector'); 
+        const controlsPanelDiv = document.getElementById('controls-panel');
+        const topRightContainer = document.getElementById('top-right-container');
+        const tempTargetVector = new THREE.Vector3();
+
+       // +++ 优化: 线条粗细 - 定义线条宽度和新的材质
+        const LINE_WIDTH = 2.0; // 设置线条宽度 (单位: 像素)
+        // 使用 LineMaterial 替换 LineBasicMaterial / LineDashedMaterial
+        const orbitMaterial = new LineMaterial({ color: 0x555566, linewidth: LINE_WIDTH, transparent: true, opacity: 0.7, vertexColors: false });
+        const dwarfOrbitMaterial = new LineMaterial({ color: 0x665555, linewidth: LINE_WIDTH * 0.9, transparent: true, opacity: 0.6, vertexColors: false });
+         // 虚线材质
+        const cometOrbitMaterial = new LineMaterial({ 
+             color: 0x557788, 
+             linewidth: LINE_WIDTH * 1.1, 
+             transparent: true, 
+             opacity: 0.85, // 0.8
+             vertexColors: false,
+             dashed: true,     // 开启虚线
+             dashSize: 6,      // 调整虚线参数
+             gapSize: 4,
+             dashScale: 1    // 调整比例
+         });
+         // +++ 结束
+
+        const degToRad = THREE.MathUtils.degToRad; 
+        const backgroundColor = new THREE.Color(0x030308); 
+
+        init();
+        // +++ 优化: 线条粗细 - 初始设置所有材质分辨率
+        updateLineMaterialResolution(window.innerWidth, window.innerHeight);
+        animate();
+
+       // +++ 优化: 线条粗细 - 更新材质分辨率函数
+       function updateLineMaterialResolution(width, height){
+           orbitMaterial.resolution.set(width, height);
+           dwarfOrbitMaterial.resolution.set(width, height);
+           cometOrbitMaterial.resolution.set(width, height);
+           // 还需要更新场景中已存在的线条（克隆的材质）
+           celestialObjects.forEach(obj => {
+              if(obj.orbitLine && obj.orbitLine.material && obj.orbitLine.material.resolution){
+                   obj.orbitLine.material.resolution.set(width, height);
+              }
+           });
+       }
+        // +++ 结束
+
+
+        function init() {
+            scene = new THREE.Scene();
+             scene.background = backgroundColor; 
+            scene.fog = new THREE.FogExp2( backgroundColor , 0.00007 );
+
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 80000); 
+            camera.position.set(0, 80, 150);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            labelRenderer = new CSS2DRenderer();
+            labelRenderer.setSize(window.innerWidth, window.innerHeight);
+            labelRenderer.domElement.style.position = 'absolute';
+            labelRenderer.domElement.style.top = '0px';
+            labelRenderer.domElement.style.left = '0px';
+            labelRenderer.domElement.style.pointerEvents = 'none';
+            document.body.appendChild(labelRenderer.domElement);
+
+            controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08;
+            controls.minDistance = 5;
+            controls.maxDistance = 40000; 
+            controls.target.set(0, 0, 0);
+            controls.update();
+
+            const ambientLight = new THREE.AmbientLight(0x555566, 3.2); 
+            scene.add(ambientLight);
+            const sunLight = new THREE.PointLight(0xffffee, 2.2, 0, 2); 
+            scene.add(sunLight);
+
+            clock = new THREE.Clock();
+            raycaster = new THREE.Raycaster();
+            pointer = new THREE.Vector2();
+           
+            createStars(); 
+            createSolarSystem();
+            createPlanetSelector(); 
+
+            setTarget(sunMesh, false); 
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize, false);
+            renderer.domElement.addEventListener('pointerup', onPointerUp); 
+            let dragStartPos = new THREE.Vector2();
+           
+             renderer.domElement.addEventListener('pointerdown', (event) => {
+                dragStartPos.set(event.clientX, event.clientY);
+                 if (event.target.closest('.panel') || event.target.closest('#top-right-container')) {
+                      controls.enabled = false;
+                 } else {
+                       controls.enabled = true;
+                 }
+             });
+              window.addEventListener('pointerup', () => {
+                   controls.enabled = true; 
+              });
+
+            resetButton.addEventListener('click', () => setTarget(sunMesh, false));
+             setupFullscreen();
+
+            timeScaleSlider.addEventListener('input', (e) => { timeScale = parseFloat(e.target.value); });
+            sizeScaleSlider.addEventListener('input', (e) => {
+                sizeScaleFactor = parseFloat(e.target.value);
+                celestialObjects.forEach(obj => {
+                    if (obj.mesh && obj.data) {
+                        const baseRadius = obj.data.displayRadius || minDisplaySize;
+                        const newScale = Math.max(minDisplaySize, baseRadius * sizeScaleFactor);
+                         if(obj.data.type === 'star' && sunGlowSprite){
+                             obj.mesh.scale.set(baseRadius * sizeScaleFactor, baseRadius * sizeScaleFactor, baseRadius * sizeScaleFactor);
+                              sunGlowSprite.scale.set( baseRadius * 3.2 * sizeScaleFactor, baseRadius* 3.2 * sizeScaleFactor, 1.0 ); 
+                         } else {
+                             obj.mesh.scale.set(newScale, newScale, newScale);
+                         }
+                    }
+                });
+                if(currentTargetMesh) setTarget(currentTargetMesh, isFollowing, true); 
+            });
+            labelToggle.addEventListener('change', (e) => {
+                showLabels = e.target.checked;
+                celestialObjects.forEach(obj => {
+                    if (obj.label && obj.label.element) {
+                        updateLabelVisibility(obj, camera.position.distanceTo(obj.mesh.getWorldPosition(tempTargetVector)));
+                     }
+                });
+            });
+        }
+         
+        function setupFullscreen() {
+           if (!fullscreenButton) return;
+            const docEl = document.documentElement;
+             if (!(docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen)) {
+                 fullscreenButton.style.display = 'none'; 
+                 console.warn("Fullscreen API not supported");
+                 return;
+             }
+           const updateButtonState = () => {
+              if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                  fullscreenButton.textContent = '退出全屏';
+                  fullscreenButton.classList.add('active');
+               } else {
+                   fullscreenButton.textContent = '进入全屏';
+                    fullscreenButton.classList.remove('active');
+               }
+               setTimeout(onWindowResize, 100); 
+           };
+           fullscreenButton.addEventListener('click', () => {
+              if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                   try {
+                       if (docEl.requestFullscreen) docEl.requestFullscreen();
+                       else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+                       else if (docEl.mozRequestFullScreen) docEl.mozRequestFullScreen();
+                       else if (docEl.msRequestFullscreen)  docEl.msRequestFullscreen();
+                   } catch(err) { console.error(`Error enabling full-screen: ${err.message}`) }
+              } else {
+                  try {
+                      if (document.exitFullscreen) document.exitFullscreen();
+                       else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                       else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+                       else if (document.msExitFullscreen)  document.msExitFullscreen();
+                   } catch(err) { console.error(`Error exiting full-screen: ${err.message}`) }
+              }
+           });
+           document.addEventListener('fullscreenchange', updateButtonState);
+           document.addEventListener('webkitfullscreenchange', updateButtonState); 
+           document.addEventListener('mozfullscreenchange', updateButtonState);   
+           document.addEventListener('MSFullscreenChange', updateButtonState);   
+           updateButtonState(); 
+        }
+
+        function createStars() {
+             const geometry = new THREE.BufferGeometry();
+             const vertices = [];
+             const count = 12000; 
+             const range = 40000; 
+             for (let i = 0; i < count; i++) {
+                  const theta = Math.random() * Math.PI * 2;
+                  const phi = Math.acos((Math.random() * 2) - 1);
+                  const radius = range * Math.cbrt(Math.random()) * 0.8 + range * 0.2 ; 
+
+                  vertices.push(
+                       radius * Math.sin(phi) * Math.cos(theta),
+                       radius * Math.sin(phi) * Math.sin(theta),
+                       radius * Math.cos(phi)
+                  );
+             }
+             geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+             const material = new THREE.PointsMaterial({ 
+                 color: 0xeeeeee,   
+                 size: 1.8,         
+                 sizeAttenuation: true,
+                 transparent: true,
+                 opacity: 0.95,      
+                 fog: false 
+              });
+             const stars = new THREE.Points(geometry, material);
+             scene.add(stars);
+        }
+
+
+        function createPlanetSelector() {
+             if(!planetSelectorDiv) return;
+             planetSelectorDiv.innerHTML = ''; // Clear existing
+
+             celestialObjects.forEach( obj => {
+                 if(!obj.mesh || !obj.data) return;
+
+                 const button = document.createElement('button');
+                 button.className = 'planet-button';
+                 button.textContent = obj.data.type === 'star' ? obj.data.name : obj.data.name.split('(')[0].trim();
+                 
+                 const hexColor = new THREE.Color(obj.data.color).getHexString();
+                 button.style.borderLeftColor = `#${hexColor}`;
+
+                 button.addEventListener('click', () =>{
+                      const meshToTarget = obj.mesh;
+                      const follow = meshToTarget !== sunMesh;
+                      setTarget(meshToTarget, follow);
+                 });
+                 planetSelectorDiv.appendChild(button);
+                 obj.button = button; 
+             });
+        }
+      
+        function createSolarSystem() {
+          
+            celestialData.forEach(data => {
+                const baseRadiusValue = data.displayRadius || minDisplaySize;
+                const radius = Math.max(minDisplaySize, baseRadiusValue * sizeScaleFactor);
+                const geometry = new THREE.SphereGeometry(1, 32, 16); 
+                let material;
+                let mesh;
+                let ringMesh = null;
+                let label = null;
+
+                if (data.type === 'star') {
+                    material = new THREE.MeshBasicMaterial({ color: data.color });
+                    mesh = new THREE.Mesh(geometry, material);
+                    mesh.position.set(0, 0, 0);
+                     mesh.scale.set(baseRadiusValue * sizeScaleFactor, baseRadiusValue * sizeScaleFactor, baseRadiusValue * sizeScaleFactor);
+                    mesh.userData = data;
+                    scene.add(mesh);
+                    sunMesh = mesh;
+                    celestialMeshes.push(mesh);
+                    
+                    const spriteMaterial = new THREE.SpriteMaterial( { 
+                         map: glowTexture, color: 0xfff5e0, transparent: true, blending: THREE.AdditiveBlending, opacity: 0.9, depthWrite: false 
+                    } );
+	                sunGlowSprite = new THREE.Sprite( spriteMaterial );
+	                sunGlowSprite.scale.set( baseRadiusValue * 3.2 * sizeScaleFactor, baseRadiusValue * 3.2 * sizeScaleFactor, 1.0 ); 
+	                mesh.add( sunGlowSprite ); 
+
+                } else {
+                    material = new THREE.MeshStandardMaterial({
+                        color: data.color, roughness: 0.8, metalness: 0.1, emissive: data.color, emissiveIntensity: 0.25 
+                    });
+                    mesh = new THREE.Mesh(geometry, material);
+                    mesh.scale.set(radius, radius, radius);
+                    mesh.userData = data;
+                    celestialMeshes.push(mesh);
+
+                    if (data.ring) { 
+                        const ringParams = data.ring;
+                        const ringGeo = new THREE.RingGeometry(ringParams.innerRadius, ringParams.outerRadius, 64);
+                        const ringMat = new THREE.MeshStandardMaterial({
+                            color: data.color, side: THREE.DoubleSide, transparent: true, opacity: ringParams.opacity || 0.5, 
+                            emissive: data.color, emissiveIntensity: 0.18, roughness: 0.6 
+                        });
+                        ringMesh = new THREE.Mesh(ringGeo, ringMat);
+                        ringMesh.rotation.x = -Math.PI / 2 + degToRad(ringParams.tilt || 0); 
+                         if (ringParams.tilt > 80 && ringParams.tilt < 100) ringMesh.rotation.y = degToRad(25);
+                        mesh.add(ringMesh);
+                    }
+                }
+
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'label';
+                labelDiv.textContent = data.name.split('(')[0].trim(); 
+                label = new CSS2DObject(labelDiv);
+                label.position.set(0, 1.5, 0); 
+                label.center.set(0.5, 1); 
+                labelDiv.classList.add('label-hidden');
+                mesh.add(label);
+                
+                const bodyObject = { mesh: mesh, ringMesh: ringMesh, label: label, data: data,
+                    curve: null, orbitGroup: null, orbitLine: null, button: null 
+                };
+                celestialObjects.push(bodyObject);
+
+                if (data.type === 'star') return; 
+
+                 const a = data.a * distanceScale;
+                 const e = data.e;
+                 const b = a * Math.sqrt(Math.max(0.001, 1 - e * e));
+                 const center_x = - a * e;
+                 const curve = new THREE.EllipseCurve( center_x, 0, Math.max(0.1,a), Math.max(0.1,b), 0, 2 * Math.PI, false, 0);
+                 bodyObject.curve = curve; 
+
+                 const nodeGroup = new THREE.Object3D();
+                 nodeGroup.rotation.y = degToRad(data.Omega);
+                 scene.add(nodeGroup);
+                 const inclineGroup = new THREE.Object3D();
+                 inclineGroup.rotation.x = degToRad(data.i);
+                 nodeGroup.add(inclineGroup);
+                 const orbitGroup = new THREE.Object3D();
+                 orbitGroup.rotation.y = degToRad(data.omega);
+                 inclineGroup.add(orbitGroup);
+                 orbitGroup.add(mesh); 
+                 bodyObject.orbitGroup = orbitGroup;
+
+                 // +++ 优化: 线条粗细 - 绘制轨道线逻辑修改
+                 if (a < 5000) { 
+                      const pointCount = Math.min(1024, Math.max(64, Math.round(orbitSegments * Math.sqrt(Math.max(1, data.a)))));
+                      const orbitPoints = curve.getPoints(pointCount);
+                       // 确保闭合
+                      orbitPoints.push(orbitPoints[0]); 
+                       
+                      // 转换点数据为 [x, y, z, x, y, z, ...] 格式
+                      const positions = [];
+				      orbitPoints.forEach( p => positions.push( p.x, 0, p.y ) ); // 注意：将2D曲线的y映射到3D的z
+
+                      // 使用 LineGeometry
+                      const orbitGeometry = new LineGeometry();
+                      orbitGeometry.setPositions( positions );
+
+                      let currentOrbitMaterial = orbitMaterial;
+                      if (data.type === 'dwarf') currentOrbitMaterial = dwarfOrbitMaterial;
+                      if (data.type === 'comet') currentOrbitMaterial = cometOrbitMaterial;
+                      
+                      // 使用 Line2 和 克隆的材质
+                      const clonedMaterial = currentOrbitMaterial.clone();
+                       // 重要：为克隆的材质设置分辨率
+                       clonedMaterial.resolution.set(window.innerWidth, window.innerHeight);
+
+                      const orbitLine = new Line2(orbitGeometry, clonedMaterial); 
+                      
+                      // 虚线必须计算距离
+                      if (data.type === 'comet') orbitLine.computeLineDistances();
+
+                      // orbitLine.rotation.x = Math.PI / 2; // <<< 移除！ positions.push(p.x, 0, p.y) 已正确放置在XZ平面
+                      orbitGroup.add(orbitLine); 
+                      bodyObject.orbitLine = orbitLine;
+                 } 
+                 // +++ 结束
+            });
+        }
+
+       let dragStartPos = new THREE.Vector2();
+      
+        function onPointerUp(event) { 
+             const dragEndPos = new THREE.Vector2(event.clientX, event.clientY);
+             if (event.target.closest('.panel') || event.target.closest('#top-right-container') || dragEndPos.distanceTo(dragStartPos) > 5) {
+                 return; 
+            }
+          
+            pointer.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+            pointer.y = - (event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+            raycaster.setFromCamera(pointer, camera);
+            // +++ 优化: 线条粗细 - orbitLine 是 Line2, 不是 mesh, 不参与射线检测
+            const intersects = raycaster.intersectObjects(celestialMeshes, true); 
+
+            if (intersects.length > 0) {
+                 let selectedObject = intersects[0].object;
+                 // 查找父级，直到找到 celestialMeshes 中的成员或 scene
+                 while(selectedObject && selectedObject.parent && !celestialMeshes.includes(selectedObject) && selectedObject.parent !== scene){
+                       // 额外检查，防止 selectedObject 变为空
+                      if(!selectedObject.parent) break;
+                      selectedObject = selectedObject.parent;
+                 }
+
+                if (selectedObject && selectedObject.userData && selectedObject.userData.type) {
+                    if(selectedObject === currentTargetMesh) return;
+                    const follow = selectedObject !== sunMesh;
+                    setTarget(selectedObject, follow);
+                }
+            }
+        }
+       
+        function setTarget(mesh, follow, updateDistanceOnly = false) {
+            if (!mesh || !mesh.userData) return;
+             
+            const previousTargetMesh = currentTargetMesh;
+            currentTargetMesh = mesh;
+            isFollowing = follow;
+
+             if (!updateDistanceOnly) { 
+                infoDiv.textContent = `聚焦: ${mesh.userData.name}`;
+                if (!isFollowing) {
+                     // +++ 优化: 线条粗细 - 切换目标时如果不是跟踪，使用lerp平滑过渡到0,0,0
+                    // controls.target.set(0, 0, 0); 
+                     tempTargetVector.set(0,0,0);
+                    infoDiv.textContent += ` (中心)`;
+                }
+                 const currentObj = celestialObjects.find(o => o.mesh === currentTargetMesh);
+                 const previousObj = celestialObjects.find(o => o.mesh === previousTargetMesh);
+                 if(previousObj && previousObj.button) previousObj.button.classList.remove('active');
+                 if(currentObj && currentObj.button) currentObj.button.classList.add('active');
+                 if(mesh === sunMesh) resetButton.classList.add('active');
+                 else resetButton.classList.remove('active');
+            }
+
+             const scaledRadius = mesh.scale.x; 
+             const effectiveRadius = mesh.userData.ring ? scaledRadius * mesh.userData.ring.outerRadius : scaledRadius;
+             const minComfortDist = effectiveRadius * 2.8; 
+
+              if(follow ) { 
+                  controls.minDistance = Math.max(0.5, minComfortDist) ;
+              } else {
+                   controls.minDistance = Math.max(5, minComfortDist); 
+              }
+            controls.update();
+        }
+
+       function updateLabelVisibility(obj, dist) {
+             if (!obj.label || !obj.label.element) return;
+             const shouldBeVisible = showLabels && (dist < 2200 || obj.mesh === currentTargetMesh); 
+             if (shouldBeVisible) {
+                  obj.label.element.classList.remove('label-hidden');
+                   obj.label.visible = true; 
+             } else {
+                 obj.label.element.classList.add('label-hidden');
+             }
+       }
+
+        function onWindowResize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+            labelRenderer.setSize(width, height);
+            // +++ 优化: 线条粗细 - resize时必须更新所有材质的分辨率
+            updateLineMaterialResolution(width, height);
+             // +++ 结束
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const delta = clock.getDelta(); 
+            const scaledDeltaTime = delta * timeScale;
+            const elapsedTime = clock.getElapsedTime(); 
+
+            celestialObjects.forEach(obj => {
+                 const dist = camera.position.distanceTo(obj.mesh.getWorldPosition(new THREE.Vector3())); // use new vector to avoid conflict with lerp target
+
+                 if (obj.mesh && obj.label) {
+                     updateLabelVisibility(obj, dist);
+                 }
+
+                if (!obj.curve || !obj.mesh || obj.data.type === 'star') {
+                    if(obj.data.type === 'star') obj.mesh.rotation.y += 0.05 * scaledDeltaTime;
+                    return;
+                };
+
+                const data = obj.data;
+                const period = Math.max(0.05, data.period); 
+                const offset = degToRad(data.M) / (2 * Math.PI);
+                const t = ((elapsedTime * timeScale / period) + offset) % 1.0;
+
+                const point = obj.curve.getPointAt(t); 
+                 // +++ 优化: 线条粗细 - 确保位置点与LineGeometry中的坐标映射一致 (x, 0, y)
+                obj.mesh.position.set(point.x, 0, point.y); 
+                obj.mesh.rotation.y += (0.5 / Math.max(1, Math.sqrt(data.period))) * scaledDeltaTime; 
+                
+                if (obj.orbitLine) {
+                    const orbitVisibleDistance = 5000; 
+                     const isTarget = obj.mesh === currentTargetMesh;
+                    const shouldShowOrbit = (dist < orbitVisibleDistance || isTarget) && data.a * distanceScale < 8000;
+                    obj.orbitLine.visible = shouldShowOrbit;
+                     // 确保材质存在且是 LineMaterial
+                    if(shouldShowOrbit && obj.orbitLine.material && obj.orbitLine.material.isLineMaterial){
+                         // 查找基础透明度
+                         let baseMaterial = orbitMaterial;
+                          if (data.type === 'dwarf') baseMaterial = dwarfOrbitMaterial;
+                          if (data.type === 'comet') baseMaterial = cometOrbitMaterial;
+                         const baseOpacity = baseMaterial.opacity;
+
+                        if(!isTarget) {
+                             obj.orbitLine.material.opacity = THREE.MathUtils.clamp( baseOpacity * (1 - dist / orbitVisibleDistance) * 2.5, 0.1 , baseOpacity) ;
+                        } else {
+                             obj.orbitLine.material.opacity = baseOpacity; // 恢复为基础材质的透明度
+                        }
+                     }
+                }
+            });
+
+            // +++ 优化: 线条粗细 - 修改lerp逻辑
+            if (currentTargetMesh ) {
+                 if(isFollowing) {
+                    currentTargetMesh.getWorldPosition(tempTargetVector);
+                 }
+                  // 无论是否following，都向 tempTargetVector (跟随目标或 0,0,0) 进行 lerp
+                  controls.target.lerp(tempTargetVector, 0.07); 
+            }
+             
+            controls.update();
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+
+    </script>
+
+</body>
+</html>
