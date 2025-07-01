@@ -5,6 +5,12 @@
 		"icon": "ti-package",
 		"sites": [
 			{
+				"name": "太阳系公转",
+				"href": "static/webs/太阳系",
+				"desc": "一张大饼~",
+				"logo": "static/icons/太阳.png"
+				},
+			{
 				"name": "城市夕阳图",
 				"href": "static/webs/城市夕阳图",
 				"desc": "最美不过夕阳红~",
