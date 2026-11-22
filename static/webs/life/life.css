@@ -203,6 +203,7 @@ canvas {
 }
 #pattern_list {
     overflow-x: hidden;
+    overflow-y: auto;
 }
 br.clear {
     clear: both;
