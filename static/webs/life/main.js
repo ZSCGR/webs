@@ -1108,14 +1108,18 @@ var
         else
         {
             let protocol = location.protocol === "http:" ? "http:" : "https:";
-            return protocol + "//html.chgr.cc/static/webs/life/" + pattern_path + id;
+            let host = location.host || "game.chgr.cc";
+            let pathname = location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1);
+            return protocol + "//" + host + pathname + pattern_path + id;
         }
     }
 
     function view_link(id)
     {
         let protocol = location.protocol === "http:" ? "http:" : "https:";
-        return protocol + "//html.chgr.cc/static/webs/life/?pattern=" + id;
+        let host = location.host || "game.chgr.cc";
+        let pathname = location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1);
+        return protocol + "//" + host + pathname + "?pattern=" + id;
     }
 
     /**
