@@ -1,0 +1,135 @@
+<canvas id="view"></canvas>
+
+<header id="hud">
+  <div class="left">
+    <span id="stats"></span>
+    <span id="fps"></span>
+  </div>
+  <div class="right">
+    <span id="time">00:00</span>
+    <button id="btn-restart" type="button" data-text="restart"></button>
+    <button id="btn-board" type="button" data-text="board"></button>
+    <button id="btn-options" type="button" data-text="options"></button>
+  </div>
+</header>
+
+<p id="status"></p>
+
+<footer id="foot">
+  <p id="hint"></p>
+  <div class="spacing">
+    <label for="spacing" data-text="spacing"></label>
+    <input id="spacing" type="range" min="100" max="200" step="1" value="100" aria-label="spacing" />
+    <span id="spacing-value">100%</span>
+  </div>
+</footer>
+
+<div id="board-panel" class="overlay" hidden>
+  <div class="panel">
+    <h2 data-text="boardTitle"></h2>
+    <p class="sub" data-text="boardSub"></p>
+
+    <div class="row">
+      <label for="side" data-text="side"></label>
+      <input id="side" type="range" min="3" max="11" step="1" value="5" />
+      <output id="side-value">5</output>
+    </div>
+    <div class="row">
+      <label for="mines" data-text="mines"></label>
+      <input id="mines" type="range" min="1" max="100" step="1" value="38" />
+      <output id="mines-value">38</output>
+    </div>
+    <p class="hint-line" id="board-hint"></p>
+
+    <div class="actions">
+      <button id="board-cancel" type="button" data-text="cancel"></button>
+      <button id="board-start" type="button" class="primary" data-text="start"></button>
+    </div>
+  </div>
+</div>
+
+<div id="options-panel" class="overlay" hidden>
+  <div class="panel">
+    <h2 data-text="optionsTitle"></h2>
+    <p class="sub" data-text="optionsSub"></p>
+
+    <div class="row">
+      <label for="cutaway-distance" data-text="cutawayDistance"></label>
+      <input id="cutaway-distance" type="range" min="0" max="400" step="1" value="150" />
+      <output id="cutaway-distance-value">15.0</output>
+    </div>
+    <div class="row">
+      <label for="volume" data-text="volume"></label>
+      <input id="volume" type="range" min="0" max="100" step="1" value="70" />
+      <output id="volume-value">70</output>
+    </div>
+    <div class="row">
+      <label data-text="mute"></label>
+      <button id="mute" type="button" class="toggle" data-text="mute"></button>
+    </div>
+
+    <div class="row">
+      <label for="map-left" data-text="mouseLeft"></label>
+      <select id="map-left"></select>
+    </div>
+    <div class="row">
+      <label for="map-middle" data-text="mouseMiddle"></label>
+      <select id="map-middle"></select>
+    </div>
+    <div class="row">
+      <label for="map-right" data-text="mouseRight"></label>
+      <select id="map-right"></select>
+    </div>
+
+    <div class="row">
+      <label data-text="axesLabel"></label>
+      <button id="show-axes" type="button" class="toggle" data-text="toggleOff"></button>
+    </div>
+    <div class="row">
+      <label data-text="gridLabel"></label>
+      <button id="show-grid" type="button" class="toggle" data-text="toggleOff"></button>
+    </div>
+    <div class="row">
+      <label for="axis-width" data-text="axisWidth"></label>
+      <input id="axis-width" type="range" min="1" max="8" step="1" value="2" />
+      <output id="axis-width-value">2</output>
+    </div>
+    <div class="row">
+      <label for="axis-opacity" data-text="axisOpacity"></label>
+      <input id="axis-opacity" type="range" min="0" max="100" step="1" value="90" />
+      <output id="axis-opacity-value">90%</output>
+    </div>
+    <div class="row">
+      <label for="grid-width" data-text="gridWidth"></label>
+      <input id="grid-width" type="range" min="1" max="8" step="1" value="1" />
+      <output id="grid-width-value">1</output>
+    </div>
+    <div class="row">
+      <label for="grid-opacity" data-text="gridOpacity"></label>
+      <input id="grid-opacity" type="range" min="0" max="100" step="1" value="30" />
+      <output id="grid-opacity-value">30%</output>
+    </div>
+
+    <div class="row">
+      <label data-text="fpsLabel"></label>
+      <button id="show-fps" type="button" class="toggle" data-text="fpsButton"></button>
+    </div>
+
+    <div class="actions">
+      <span class="version" id="version"></span>
+      <button id="options-close" type="button" class="primary" data-text="close"></button>
+    </div>
+  </div>
+</div>
+
+<div id="result" class="overlay" hidden>
+  <div class="panel narrow">
+    <h2 id="result-title"></h2>
+    <p class="big" id="result-time">00:00</p>
+    <p class="sub" id="result-detail"></p>
+    <div class="actions">
+      <button id="result-close" type="button" data-text="close"></button>
+      <button id="result-again" type="button" class="primary" data-text="again"></button>
+    </div>
+  </div>
+</div>

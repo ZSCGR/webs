@@ -1,0 +1,4 @@
+node_modules/
+# e2e 跑完留下的截图
+dist/e2e.png
+build/

@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "id": "01a1cec5-49d1-7ed6-ae32-5c171b606838",
+  "name": "Minesweeper3D",
+  "tags": [
+    "游戏",
+    "益智",
+    "3D"
+  ],
+  "version": "1.1.0",
+  "entry": "index.html",
+  "script": "app.js",
+  "style": "app.css",
+  "permissions": [
+    "theme.read",
+    "storage.read",
+    "storage.write",
+    "audio.webAudio"
+  ],
+  "assets": [
+    "assets/sfx/reveal.mp3",
+    "assets/sfx/flood.mp3",
+    "assets/sfx/flag.mp3",
+    "assets/sfx/ui_click.mp3",
+    "assets/sfx/boom.mp3",
+    "assets/sfx/win.mp3",
+    "assets/models/cube.glb",
+    "assets/models/mine.glb"
+  ],
+  "media": {}
+}

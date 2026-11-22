@@ -9,14 +9,14 @@
 				"href": "static/webs/太阳系",
 				"desc": "一张大饼~",
 				"logo": "static/icons/太阳.png"
-				},
+			},
 			{
 				"name": "城市夕阳图",
 				"href": "static/webs/城市夕阳图",
 				"desc": "最美不过夕阳红~",
 				"logo": "static/icons/city-sun.png"
-				},
-				{
+			},
+			{
 				"name": "浮雕按钮图",
 				"href": "static/webs/浮雕按钮图",
 				"desc": "浮雕样式的的登录界面",
@@ -28,13 +28,13 @@
 				"desc": "模仿华为充电样式",
 				"logo": "static/icons/huawei.png"
 			},
-				{
+			{
 				"name": "立体进度图",
 				"href": "static/webs/立体进度图",
 				"desc": "假的立体进度条",
 				"logo": "static/icons/jdt.png"
 			},
-				{
+			{
 				"name": "量子纠缠图",
 				"href": "static/webs/量子纠缠图",
 				"desc": "记得至少打开两个页面哦~",
@@ -64,7 +64,7 @@
 				"desc": "华丽的条纹艺术背景",
 				"logo": "static/icons/twys.png"
 			},
-			 {
+			{
 				"name": "文字波浪图",
 				"href": "static/webs/文字波浪图",
 				"desc": "想给文字底下加上好看的线吗？",
@@ -124,8 +124,7 @@
 				"desc": "效果非常酷炫",
 				"logo": "static/icons/login-2.png"
 			}
-
-		  ]
+		]
 	},
 	{
 		"_id": "game",
@@ -271,6 +270,12 @@
 				"logo": "static/icons/proxx.png"
 			},
 			{
+				"name": "3D扫雷",
+				"href": "static/webs/Minesweeper3D",
+				"desc": "旋转三维立方体立体扫雷，每面独立计数",
+				"logo": "static/icons/minesweeper3d.png"
+			},
+			{
 				"name": "滑块拼图",
 				"href": "static/webs/滑块拼图",
 				"desc": "经典益智小游戏",
@@ -318,7 +323,7 @@
 				"desc": "好玩的3D推箱子游戏",
 				"logo": "static/icons/konnekt.png"
 			}
-		 ]
+		]
 	},
 	{
 		"_id": "tool",
@@ -337,7 +342,6 @@
 				"desc": "🎨 一个很好玩的光线绘画网站",
 				"logo": "static/icons/silk_thumb.png"
 			}
-			
 		]
 	}
 ]

@@ -46,3 +46,6 @@ https://github.com/taketimeasafriend/ztype
 ### Minecraft （我的世界）
 用的这个版本
 https://github.com/Dev-80Soft/Eaglercraft1.8-SinglePlayer-
+
+### 3D扫雷（Minesweeper3D）
+https://github.com/gaelthas/Minesweeper3D

@@ -1,0 +1,24 @@
+{
+  "name": "minecube-web",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:app": "vite --config vite.config.app.js",
+    "build": "vite build",
+    "build:app": "vite build --config vite.config.app.js && node scripts/package.mjs",
+    "package": "node scripts/package.mjs",
+    "test": "node --test",
+    "test:e2e": "node scripts/e2e.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0",
+    "@discourse-mini-app/sdk": "file:../sdk"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.17.0",
+    "vite": "^7.1.0",
+    "vite-plugin-singlefile": "^2.3.0"
+  }
+}
