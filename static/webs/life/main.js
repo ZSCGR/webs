@@ -1029,17 +1029,26 @@ var
 
                         patterns.forEach(function(pattern)
                         {
+                            pattern = pattern.trim();
+                            if(!pattern)
+                            {
+                                return;
+                            }
+
                             var
-                                name = pattern.split(" ")[0],
-                                size = pattern.split(" ")[1],
+                                parts = pattern.split(" "),
+                                name = parts[0],
+                                size = parts.slice(1).join(" "),
                                 name_element = document.createElement("div"),
                                 size_element = document.createElement("span");
 
                             set_text(name_element, name);
-                            set_text(size_element, size);
-                            size_element.className = "size";
-
-                            name_element.appendChild(size_element);
+                            if(size)
+                            {
+                                set_text(size_element, size);
+                                size_element.className = "size";
+                                name_element.appendChild(size_element);
+                            }
                             list.appendChild(name_element);
 
                             name_element.onclick = function()
