@@ -28,6 +28,9 @@ switch-engine-breeder 开关引擎繁殖器
 3enginecordershipgun 3引擎科德飞船枪
 gunstar 枪星(Gunstar)
 turingmachine 通用图灵机
+otcametapixel OTCA元像素(画中画单胞)
+metapixel-galaxy.mc 元像素生命银河(生命中生命)
+metapixel-p216-gun.mc 元像素滑翔机枪(画中画枪)
 primer 素数生成器
 clock 巨型数字时钟
 infinitegliderhotel 无限滑翔者旅馆
