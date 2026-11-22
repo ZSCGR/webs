@@ -297,7 +297,7 @@ var formats = (function()
                         }
                         else
                         {
-                            result.rule = "23/3";
+                            result.rule = "B3/S23";
                         }
                         cont = false;
                         break;
@@ -393,35 +393,30 @@ var formats = (function()
 
     function rule2str(rule_s, rule_b)
     {
-        var rule = "";
+        var s = "", b = "";
 
-        for(var i = 0; rule_s; rule_s >>= 1, i++)
+        for(var i = 0; i <= 8; i++)
         {
-            if(rule_s & 1)
+            if(rule_b & (1 << i))
             {
-                rule += i;
+                b += i;
             }
         }
 
-        rule += "/";
-
-        for(var i = 0; rule_b; rule_b >>= 1, i++)
+        for(var i = 0; i <= 8; i++)
         {
-            if(rule_b & 1)
+            if(rule_s & (1 << i))
             {
-                rule += i;
+                s += i;
             }
         }
 
-        return rule;
+        return "B" + b + "/S" + s;
     }
 
     function rule2str_rle(rule_s, rule_b)
     {
-        let rule = formats.rule2str(rule_s, rule_b);
-        rule = rule.split("/");
-        rule = `B${rule[1]}/S${rule[0]}`;
-        return rule;
+        return formats.rule2str(rule_s, rule_b);
     }
 
     function parse_rule_rle(rule_str, survived)
@@ -448,18 +443,40 @@ var formats = (function()
 
     function parse_rule(rule_str, survived)
     {
-        var rule = 0,
-            parsed = rule_str.split("/")[survived ? 0 : 1];
+        if(!rule_str) return false;
+        rule_str = rule_str.trim();
+
+        var b_part = "", s_part = "";
+        var b_match = rule_str.match(/b([0-8]*)/i);
+        var s_match = rule_str.match(/s([0-8]*)/i);
+
+        if(b_match || s_match)
+        {
+            b_part = b_match ? b_match[1] : "";
+            s_part = s_match ? s_match[1] : "";
+        }
+        else if(rule_str.indexOf("/") !== -1)
+        {
+            var parts = rule_str.split("/");
+            // Old format: S/B
+            s_part = parts[0];
+            b_part = parts[1] || "";
+        }
+        else
+        {
+            return false;
+        }
+
+        var parsed = survived ? s_part : b_part;
+        var rule = 0;
 
         for(var i = 0; i < parsed.length; i++)
         {
             var n = Number(parsed[i]);
-
-            if(isNaN(n) || rule & 1 << n)
+            if(isNaN(n) || (rule & (1 << n)))
             {
                 return false;
             }
-
             rule |= 1 << n;
         }
 
